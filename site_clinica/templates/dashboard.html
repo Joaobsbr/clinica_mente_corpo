@@ -1,0 +1,552 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'site_clinica/style.css' %}" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+    <section>
+        <!-- Apenas HTML: os radios controlam qual aba está ativa. -->
+        <input checked="" class="tab-switch-input" id="tab-dashboard" name="aba-administrativa" type="radio">
+        <input class="tab-switch-input" id="tab-agenda" name="aba-administrativa" type="radio">
+        <input class="tab-switch-input" id="tab-consultas" name="aba-administrativa" type="radio">
+        <input class="tab-switch-input" id="tab-pacientes" name="aba-administrativa" type="radio">
+        <input class="tab-switch-input" id="tab-prontuario" name="aba-administrativa" type="radio">
+        <input class="tab-switch-input" id="tab-profissionais" name="aba-administrativa" type="radio">
+        <input class="tab-switch-input" id="tab-especialidades" name="aba-administrativa" type="radio">
+        <input class="tab-switch-input" id="tab-financeiro" name="aba-administrativa" type="radio">
+        <input class="tab-switch-input" id="tab-relatorios" name="aba-administrativa" type="radio">
+        <input class="tab-switch-input" id="tab-configuracoes" name="aba-administrativa" type="radio">
+        <aside class="sidebar">
+          <div class="sidebar-brand">
+            <img alt="Espaço Mente e Corpo" class="brand-icon" src="{% static 'site_clinica/489b9.png' %}">
+            <div><strong>Espaço Mente e Corpo</strong> <small>Clínica Integrada</small></div>
+          </div>
+          <div class="user-mini"><div class="avatar">CA</div> <div><strong>Clécio Almeida</strong> <small>Administrador</small></div></div>
+          <nav aria-label="Abas do sistema" class="side-nav">
+            <label class="nav-item" for="tab-dashboard">⌂ <span>Dashboard</span></label>
+            <label class="nav-item" for="tab-agenda">◷ <span>Agenda</span></label>
+            <label class="nav-item" for="tab-consultas">▤ <span>Consultas</span></label>
+            <label class="nav-item" for="tab-pacientes">♙ <span>Pacientes</span></label>
+            <label class="nav-item" for="tab-prontuario">▥ <span>Prontuários</span></label>
+            <label class="nav-item" for="tab-profissionais">⚕ <span>Profissionais</span></label>
+            <label class="nav-item" for="tab-especialidades">✚ <span>Especialidades</span></label>
+            <label class="nav-item" for="tab-financeiro">R$ <span>Financeiro</span></label>
+            <label class="nav-item" for="tab-relatorios">▥ <span>Relatórios</span></label>
+            <label class="nav-item" for="tab-configuracoes">⚙ <span>Configurações</span></label>
+          </nav>
+          <label class="logout" for="switch-public">↪ Sair</label>
+        </aside>
+        <div class="app-main">
+          <header class="app-header">
+            <div class="app-headings">
+              <div class="tab-heading" data-heading="dashboard"><span>Dashboard</span> <h2>Visão geral</h2></div>
+              <div class="tab-heading" data-heading="agenda"><span>Agenda</span> <h2>Agenda da clínica</h2></div>
+              <div class="tab-heading" data-heading="consultas"><span>Consultas</span> <h2>Gerenciamento de consultas</h2></div>
+              <div class="tab-heading" data-heading="pacientes"><span>Pacientes</span> <h2>Cadastro e histórico</h2></div>
+              <div class="tab-heading" data-heading="prontuario"><span>Prontuários</span> <h2>Histórico clínico</h2></div>
+              <div class="tab-heading" data-heading="profissionais"><span>Profissionais</span> <h2>Equipe da clínica</h2></div>
+              <div class="tab-heading" data-heading="especialidades"><span>Especialidades</span> <h2>Especialidades cadastradas</h2></div>
+              <div class="tab-heading" data-heading="financeiro"><span>Financeiro</span> <h2>Controle financeiro</h2></div>
+              <div class="tab-heading" data-heading="relatorios"><span>Relatórios</span> <h2>Indicadores da clínica</h2></div>
+              <div class="tab-heading" data-heading="configuracoes"><span>Configurações</span> <h2>Configurações do sistema</h2></div>
+            </div>
+            <div class="header-actions">
+              <button class="icon-btn" disabled="" title="Controle de demonstração">🔔</button>
+              <button class="profile-btn" disabled="" title="Controle de demonstração"><span class="avatar small">CA</span> Clécio ▾</button>
+            </div>
+          </header>
+          <main class="page-content" id="pageContent">
+            <!-- As seções abaixo estão no HTML. O CSS decide qual mostrar com base no radio selecionado; nenhum JS é usado para navegar. -->
+            <!-- ABA: DASHBOARD -->
+            <section class="app-panel" data-panel="dashboard" id="panel-dashboard">
+              <div class="page-top">
+                <div><h3>Bom dia, Clécio 👋</h3> <p class="subtitle">Resumo demonstrativo da clínica.</p></div>
+                <a class="btn btn-primary" href="#modal-agendamento">+ Nova consulta</a>
+              </div>
+              <div class="stat-grid">
+                <div class="stat-card">
+                  <span>Consultas cadastradas</span>
+                  <strong id="statAppointments">4</strong>
+                  <small>Consultas de demonstração</small>
+                </div>
+                <div class="stat-card"><span>Pacientes</span> <strong id="statPatients">4</strong> <small>Cadastros disponíveis</small></div>
+                <div class="stat-card"><span>Profissionais</span> <strong id="statProfessionals">3</strong> <small>Equipe ativa</small></div>
+                <div class="stat-card"><span>Receita do mês</span> <strong>R$ 18.450</strong> <small>Valor ilustrativo</small></div>
+              </div>
+              <div class="dashboard-grid">
+                <section class="panel">
+                  <h3>Consultas cadastradas</h3>
+                  <div class="appointment-list" id="dashboardAppointments">
+                    <div class="appointment">
+                      <div><strong>08:30 — João Silva Santos</strong> <small>Clínica Médica · Dra. Mariana Costa</small></div>
+                      <span class="badge">Confirmada</span>
+                    </div>
+                    <div class="appointment">
+                      <div><strong>10:00 — Maria Eduarda Lima</strong> <small>Cardiologia · Dr. Rafael Almeida</small></div>
+                      <span class="badge yellow">Aguardando</span>
+                    </div>
+                    <div class="appointment">
+                      <div><strong>13:30 — Lucas Henrique</strong> <small>Clínica Médica · Dra. Mariana Costa</small></div>
+                      <span class="badge">Confirmada</span>
+                    </div>
+                    <div class="appointment">
+                      <div><strong>15:00 — Ana Clara Souza</strong> <small>Dermatologia · Dra. Camila Rocha</small></div>
+                      <span class="badge">Agendada</span>
+                    </div>
+                  </div>
+                </section>
+                <section class="panel">
+                  <h3>Ações rápidas</h3>
+                  <div class="quick-actions">
+                    <a class="btn btn-soft" href="#modal-paciente">+ Cadastrar paciente</a>
+                    <label class="btn btn-soft tab-quick-link" for="tab-agenda">◷ Abrir agenda</label>
+                    <label class="btn btn-soft tab-quick-link" for="tab-prontuario">▥ Abrir prontuário</label>
+                    <label class="btn btn-soft tab-quick-link" for="tab-relatorios">▤ Ver relatórios</label>
+                  </div>
+                </section>
+              </div>
+            </section>
+            <!-- ABA: AGENDA -->
+            <section class="app-panel" data-panel="agenda" id="panel-agenda">
+              <div class="page-top">
+                <div><h3>Agenda</h3> <p class="subtitle" id="agendaDateLabel">Agenda demonstrativa — horários ilustrativos</p></div>
+                <a class="btn btn-primary" href="#modal-agendamento">+ Nova consulta</a>
+              </div>
+              <div class="panel">
+                <div class="search-row">
+                  <select aria-label="Filtrar por profissional" disabled="" id="agendaDoctorFilter">
+                    <option value="">Todos os profissionais (filtro indisponível nesta prévia)</option>
+                    <option>Dra. Mariana Costa</option>
+                    <option>Dr. Rafael Almeida</option>
+                    <option>Dra. Camila Rocha</option>
+                  </select>
+                  <input aria-label="Filtrar por data" disabled="" id="agendaDateFilter" type="date" value="2026-10-02">
+                </div>
+                <p class="demo-note">Filtros e pesquisas exigem JavaScript ou um backend. Os dados abaixo são fixos, para demonstrar o layout.</p>
+                <div class="appointment-list" id="agendaAppointments">
+                  <div class="appointment">
+                    <div><strong>08:30 — João Silva Santos</strong> <small>Clínica Médica · Dra. Mariana Costa</small></div>
+                    <span class="badge">Confirmada</span>
+                  </div>
+                  <div class="appointment">
+                    <div><strong>10:00 — Maria Eduarda Lima</strong> <small>Cardiologia · Dr. Rafael Almeida</small></div>
+                    <span class="badge yellow">Aguardando</span>
+                  </div>
+                  <div class="appointment">
+                    <div><strong>13:30 — Lucas Henrique</strong> <small>Clínica Médica · Dra. Mariana Costa</small></div>
+                    <span class="badge">Confirmada</span>
+                  </div>
+                  <div class="appointment">
+                    <div><strong>15:00 — Ana Clara Souza</strong> <small>Dermatologia · Dra. Camila Rocha</small></div>
+                    <span class="badge">Agendada</span>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <!-- ABA: CONSULTAS -->
+            <section class="app-panel" data-panel="consultas" id="panel-consultas">
+              <div class="page-top"><h3>Consultas</h3> <a class="btn btn-primary" href="#modal-agendamento">+ Nova consulta</a></div>
+              <div class="table-wrap">
+                <table class="data-table">
+                  <thead>
+                    <tr><th>Horário</th> <th>Paciente</th> <th>Profissional</th> <th>Especialidade</th> <th>Status</th> <th>Ação</th></tr>
+                  </thead>
+                  <tbody id="consultasBody">
+                    <tr>
+                      <td>08:30</td>
+                      <td>João Silva Santos</td>
+                      <td>Dra. Mariana Costa</td>
+                      <td>Clínica Médica</td>
+                      <td><span class="badge">Confirmada</span></td>
+                      <td><a class="action-btn" href="#modal-atendimento">Abrir</a></td>
+                    </tr>
+                    <tr>
+                      <td>10:00</td>
+                      <td>Maria Eduarda Lima</td>
+                      <td>Dr. Rafael Almeida</td>
+                      <td>Cardiologia</td>
+                      <td><span class="badge">Aguardando</span></td>
+                      <td><a class="action-btn" href="#modal-atendimento">Abrir</a></td>
+                    </tr>
+                    <tr>
+                      <td>13:30</td>
+                      <td>Lucas Henrique</td>
+                      <td>Dra. Mariana Costa</td>
+                      <td>Clínica Médica</td>
+                      <td><span class="badge">Confirmada</span></td>
+                      <td><a class="action-btn" href="#modal-atendimento">Abrir</a></td>
+                    </tr>
+                    <tr>
+                      <td>15:00</td>
+                      <td>Ana Clara Souza</td>
+                      <td>Dra. Camila Rocha</td>
+                      <td>Dermatologia</td>
+                      <td><span class="badge">Agendada</span></td>
+                      <td><a class="action-btn" href="#modal-atendimento">Abrir</a></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+            <!-- ABA: PACIENTES -->
+            <section class="app-panel" data-panel="pacientes" id="panel-pacientes">
+              <div class="page-top"><h3>Pacientes</h3> <a class="btn btn-primary" href="#modal-paciente">+ Novo paciente</a></div>
+              <div class="search-row">
+                <input aria-label="Buscar por nome ou CPF" disabled="" id="patientSearch" placeholder="Buscar por nome ou CPF..." type="search">
+                <select aria-label="Filtrar por status" disabled="" id="patientStatus">
+                  <option value="">Todos os status</option>
+                  <option value="Ativo">Ativo</option>
+                </select>
+              </div>
+              <p class="demo-note">Filtros e pesquisas exigem JavaScript ou um backend. Os dados abaixo são fixos, para demonstrar o layout.</p>
+              <div class="table-wrap">
+                <table class="data-table">
+                  <thead>
+                    <tr><th>Paciente</th> <th>CPF</th> <th>Telefone</th> <th>Nascimento</th> <th>Status</th> <th>Ações</th></tr>
+                  </thead>
+                  <tbody id="patientsBody">
+                    <tr>
+                      <td><strong>João Silva Santos</strong></td>
+                      <td>123.456.789-00</td>
+                      <td>(81) 98888-1111</td>
+                      <td>15/02/1990</td>
+                      <td><span class="badge">Ativo</span></td>
+                      <td><a class="action-btn" href="#modal-ficha-0">Ver ficha</a></td>
+                    </tr>
+                    <tr>
+                      <td><strong>Maria Eduarda Lima</strong></td>
+                      <td>234.567.890-11</td>
+                      <td>(81) 97777-2222</td>
+                      <td>20/08/1987</td>
+                      <td><span class="badge">Ativo</span></td>
+                      <td><a class="action-btn" href="#modal-ficha-1">Ver ficha</a></td>
+                    </tr>
+                    <tr>
+                      <td><strong>Lucas Henrique</strong></td>
+                      <td>345.678.901-22</td>
+                      <td>(81) 96666-3333</td>
+                      <td>03/11/2001</td>
+                      <td><span class="badge">Ativo</span></td>
+                      <td><a class="action-btn" href="#modal-ficha-2">Ver ficha</a></td>
+                    </tr>
+                    <tr>
+                      <td><strong>Ana Clara Souza</strong></td>
+                      <td>456.789.012-33</td>
+                      <td>(81) 95555-4444</td>
+                      <td>28/05/1995</td>
+                      <td><span class="badge">Ativo</span></td>
+                      <td><a class="action-btn" href="#modal-ficha-3">Ver ficha</a></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+            <!-- ABA: PRONTUÁRIOS -->
+            <section class="app-panel" data-panel="prontuario" id="panel-prontuario">
+              <div class="page-top"><h3>Prontuários</h3> <a class="btn btn-primary" href="#modal-atendimento">+ Novo atendimento</a></div>
+              <div class="dashboard-grid">
+                <section class="panel">
+                  <h3>Buscar paciente</h3>
+                  <div class="search-row">
+                    <input aria-label="Buscar paciente para o prontuário" disabled="" id="prontuarioSearch" placeholder="Nome ou CPF" type="search">
+                    <button class="btn btn-primary" disabled="" title="Requer backend" type="button">Buscar</button>
+                  </div>
+                  <p class="demo-note">Filtros e pesquisas exigem JavaScript ou um backend. Os dados abaixo são fixos, para demonstrar o layout.</p>
+                  <div id="prontuarioPatients">
+                    <div class="appointment">
+                      <div><strong>João Silva Santos</strong> <small>Histórico clínico: demonstração</small></div>
+                      <a class="action-btn" href="#modal-ficha-0">Abrir</a>
+                    </div>
+                    <div class="appointment">
+                      <div><strong>Maria Eduarda Lima</strong> <small>Histórico clínico: demonstração</small></div>
+                      <a class="action-btn" href="#modal-ficha-1">Abrir</a>
+                    </div>
+                    <div class="appointment">
+                      <div><strong>Lucas Henrique</strong> <small>Histórico clínico: demonstração</small></div>
+                      <a class="action-btn" href="#modal-ficha-2">Abrir</a>
+                    </div>
+                  </div>
+                </section>
+                <section class="panel">
+                  <h3>Informações do prontuário</h3>
+                  <div class="empty">Selecione um paciente para visualizar o histórico clínico.</div>
+                </section>
+              </div>
+            </section>
+            <!-- ABA: PROFISSIONAIS -->
+            <section class="app-panel" data-panel="profissionais" id="panel-profissionais">
+              <div class="page-top"><h3>Profissionais</h3> <a class="btn btn-primary" href="#modal-profissional">+ Novo profissional</a></div>
+              <div class="cards-grid" id="adminProfessionalCards">
+                <article class="public-card">
+                  <div class="avatar">DR</div>
+                  <h3>Dra. Mariana Costa</h3>
+                  <p>Clínica Médica <br> CRM-PE 12345</p>
+                  <label class="action-btn tab-quick-link" for="tab-agenda">Abrir agenda</label>
+                </article>
+                <article class="public-card">
+                  <div class="avatar">DR</div>
+                  <h3>Dr. Rafael Almeida</h3>
+                  <p>Cardiologia <br> CRM-PE 23456</p>
+                  <label class="action-btn tab-quick-link" for="tab-agenda">Abrir agenda</label>
+                </article>
+                <article class="public-card">
+                  <div class="avatar">DR</div>
+                  <h3>Dra. Camila Rocha</h3>
+                  <p>Dermatologia <br> CRM-PE 34567</p>
+                  <label class="action-btn tab-quick-link" for="tab-agenda">Abrir agenda</label>
+                </article>
+              </div>
+            </section>
+            <!-- ABA: ESPECIALIDADES -->
+            <section class="app-panel" data-panel="especialidades" id="panel-especialidades">
+              <div class="page-top"><h3>Especialidades</h3> <a class="btn btn-primary" href="#modal-especialidade">+ Nova especialidade</a></div>
+              <div class="cards-grid" id="adminSpecialtyCards">
+                <article class="public-card">
+                  <span class="eyebrow">Especialidade</span>
+                  <h3>Clínica Médica</h3>
+                  <p>Profissionais cadastrados: 1</p>
+                </article>
+                <article class="public-card">
+                  <span class="eyebrow">Especialidade</span>
+                  <h3>Cardiologia</h3>
+                  <p>Profissionais cadastrados: 1</p>
+                </article>
+                <article class="public-card">
+                  <span class="eyebrow">Especialidade</span>
+                  <h3>Dermatologia</h3>
+                  <p>Profissionais cadastrados: 1</p>
+                </article>
+                <article class="public-card"><span class="eyebrow">Especialidade</span> <h3>Pediatria</h3> <p>Profissionais cadastrados: 0</p></article>
+                <article class="public-card">
+                  <span class="eyebrow">Especialidade</span>
+                  <h3>Ginecologia</h3>
+                  <p>Profissionais cadastrados: 0</p>
+                </article>
+                <article class="public-card"><span class="eyebrow">Especialidade</span> <h3>Ortopedia</h3> <p>Profissionais cadastrados: 0</p></article>
+              </div>
+            </section>
+            <!-- ABA: FINANCEIRO -->
+            <section class="app-panel" data-panel="financeiro" id="panel-financeiro">
+              <div class="page-top"><h3>Financeiro</h3></div>
+              <div class="panel"><h3>Módulo de financeiro</h3> <div class="empty">Módulo pronto para receber os dados e regras do sistema.</div></div>
+            </section>
+            <!-- ABA: RELATÓRIOS -->
+            <section class="app-panel" data-panel="relatorios" id="panel-relatorios">
+              <div class="page-top"><h3>Relatórios</h3></div>
+              <div class="panel"><h3>Módulo de relatórios</h3> <div class="empty">Módulo pronto para receber os dados e regras do sistema.</div></div>
+            </section>
+            <!-- ABA: CONFIGURAÇÕES -->
+            <section class="app-panel" data-panel="configuracoes" id="panel-configuracoes">
+              <div class="page-top">
+                <h3>Configurações</h3>
+                <button class="btn btn-primary" disabled="" title="Requer backend" type="button">Salvar alterações</button>
+              </div>
+              <div class="panel">
+                <h3>Módulo de configurações</h3>
+                <div class="empty">Módulo pronto para receber os dados e regras do sistema.</div>
+              </div>
+            </section>
+          </main>
+        </div>
+      </section>
+      <!-- MODAL -->
+    <section aria-label="Nova consulta" aria-modal="true" class="css-modal" id="modal-agendamento" role="dialog">
+        <div class="modal">
+          <div class="modal-header"><h3>Nova consulta</h3> <a aria-label="Fechar janela" class="close-modal" href="#fechar">×</a></div>
+          <div class="demo-form">
+            <p class="demo-note"><strong>Apenas visualização.</strong> Os dados preenchidos aqui não são enviados nem salvos.</p>
+            <div class="form-grid">
+              <label class="full-col">
+                Paciente
+                <select>
+                  <option>João Silva Santos</option>
+                  <option>Maria Eduarda Lima</option>
+                  <option>Lucas Henrique</option>
+                  <option>Ana Clara Souza</option>
+                </select>
+              </label>
+              <label>
+                Especialidade
+                <select>
+                  <option>Clínica Médica</option>
+                  <option>Cardiologia</option>
+                  <option>Dermatologia</option>
+                  <option>Pediatria</option>
+                  <option>Ginecologia</option>
+                  <option>Ortopedia</option>
+                </select>
+              </label>
+              <label>
+                Profissional
+                <select><option>Dra. Mariana Costa</option> <option>Dr. Rafael Almeida</option> <option>Dra. Camila Rocha</option></select>
+              </label>
+              <label>Data <input type="date"></label>
+              <label>Horário <input type="time"></label>
+              <label class="full-col">Observação <textarea placeholder="Observações"></textarea></label>
+            </div>
+            <div class="modal-actions">
+              <a class="btn btn-outline" href="#fechar">Fechar</a>
+              <button class="btn btn-primary" disabled="" type="button">Salvar (requer backend)</button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section aria-label="Cadastrar paciente" aria-modal="true" class="css-modal" id="modal-paciente" role="dialog">
+        <div class="modal">
+          <div class="modal-header"><h3>Cadastrar paciente</h3> <a aria-label="Fechar janela" class="close-modal" href="#fechar">×</a></div>
+          <div class="demo-form">
+            <p class="demo-note"><strong>Apenas visualização.</strong> Os dados preenchidos aqui não são enviados nem salvos.</p>
+            <div class="form-grid">
+              <label>Nome completo <input placeholder="Nome completo"></label>
+              <label>CPF <input placeholder="000.000.000-00"></label>
+              <label>Data de nascimento <input type="date"></label>
+              <label>Telefone <input type="tel"></label>
+              <label class="full-col">E-mail <input type="email"></label>
+              <label class="full-col">Endereço <input></label>
+            </div>
+            <div class="modal-actions">
+              <a class="btn btn-outline" href="#fechar">Fechar</a>
+              <button class="btn btn-primary" disabled="" type="button">Salvar (requer backend)</button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section aria-label="Novo profissional" aria-modal="true" class="css-modal" id="modal-profissional" role="dialog">
+        <div class="modal">
+          <div class="modal-header"><h3>Novo profissional</h3> <a aria-label="Fechar janela" class="close-modal" href="#fechar">×</a></div>
+          <div class="demo-form">
+            <p class="demo-note"><strong>Apenas visualização.</strong> Os dados preenchidos aqui não são enviados nem salvos.</p>
+            <div class="form-grid">
+              <label>Nome <input></label>
+              <label>
+                Especialidade
+                <select>
+                  <option>Clínica Médica</option>
+                  <option>Cardiologia</option>
+                  <option>Dermatologia</option>
+                  <option>Pediatria</option>
+                  <option>Ginecologia</option>
+                  <option>Ortopedia</option>
+                </select>
+              </label>
+              <label class="full-col">Registro profissional <input placeholder="CRM / Conselho"></label>
+            </div>
+            <div class="modal-actions">
+              <a class="btn btn-outline" href="#fechar">Fechar</a>
+              <button class="btn btn-primary" disabled="" type="button">Salvar (requer backend)</button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section aria-label="Nova especialidade" aria-modal="true" class="css-modal" id="modal-especialidade" role="dialog">
+        <div class="modal">
+          <div class="modal-header"><h3>Nova especialidade</h3> <a aria-label="Fechar janela" class="close-modal" href="#fechar">×</a></div>
+          <div class="demo-form">
+            <p class="demo-note"><strong>Apenas visualização.</strong> Os dados preenchidos aqui não são enviados nem salvos.</p>
+            <div class="form-grid"><label class="full-col">Nome da especialidade <input placeholder="Ex.: Neurologia"></label></div>
+            <div class="modal-actions">
+              <a class="btn btn-outline" href="#fechar">Fechar</a>
+              <button class="btn btn-primary" disabled="" type="button">Salvar (requer backend)</button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section aria-label="Atendimento" aria-modal="true" class="css-modal" id="modal-atendimento" role="dialog">
+        <div class="modal">
+          <div class="modal-header"><h3>Atendimento</h3> <a aria-label="Fechar janela" class="close-modal" href="#fechar">×</a></div>
+          <div class="demo-form">
+            <p class="demo-note"><strong>Apenas visualização.</strong> Os dados preenchidos aqui não são enviados nem salvos.</p>
+            <div class="form-grid">
+              <label class="full-col">Queixa principal <textarea></textarea></label>
+              <label class="full-col">Diagnóstico <textarea></textarea></label>
+              <label class="full-col">Conduta / observações <textarea></textarea></label>
+            </div>
+            <div class="modal-actions">
+              <a class="btn btn-outline" href="#fechar">Fechar</a>
+              <button class="btn btn-primary" disabled="" type="button">Salvar (requer backend)</button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section aria-label="Criar conta" aria-modal="true" class="css-modal" id="modal-criar-conta" role="dialog">
+        <div class="modal">
+          <div class="modal-header"><h3>Criar conta</h3> <a aria-label="Fechar janela" class="close-modal" href="#fechar">×</a></div>
+          <div class="demo-form">
+            <p class="demo-note"><strong>Apenas visualização.</strong> Os dados preenchidos aqui não são enviados nem salvos.</p>
+            <div class="form-grid">
+              <label class="full-col">Nome completo <input></label>
+              <label class="full-col">E-mail <input type="email"></label>
+              <label class="full-col">Senha <input type="password"></label>
+            </div>
+            <div class="modal-actions">
+              <a class="btn btn-outline" href="#fechar">Fechar</a>
+              <button class="btn btn-primary" disabled="" type="button">Salvar (requer backend)</button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section aria-label="Recuperação de acesso" aria-modal="true" class="css-modal" id="modal-recuperar" role="dialog">
+        <div class="modal">
+          <div class="modal-header"><h3>Recuperação de acesso</h3> <a aria-label="Fechar janela" class="close-modal" href="#fechar">×</a></div>
+          <p class="demo-note">Para recuperar uma senha de verdade, é necessário conectar a página a um sistema de autenticação.</p>
+          <div class="modal-actions"><a class="btn btn-primary" href="#fechar">Fechar</a></div>
+        </div>
+      </section>
+      <section aria-label="Ficha do paciente" aria-modal="true" class="css-modal" id="modal-ficha-0" role="dialog">
+        <div class="modal">
+          <div class="modal-header"><h3>Ficha do paciente</h3> <a aria-label="Fechar janela" class="close-modal" href="#fechar">×</a></div>
+          <div class="panel patient-detail">
+            <p><strong>Nome:</strong> João Silva Santos</p>
+            <p><strong>CPF:</strong> 123.456.789-00</p>
+            <p><strong>Telefone:</strong> (81) 98888-1111</p>
+            <p><strong>Nascimento:</strong> 15/02/1990</p>
+            <p><strong>Status:</strong> <span class="badge">Ativo</span></p>
+          </div>
+          <div class="modal-actions"><a class="btn btn-primary" href="#fechar">Fechar</a></div>
+        </div>
+      </section>
+      <section aria-label="Ficha do paciente" aria-modal="true" class="css-modal" id="modal-ficha-1" role="dialog">
+        <div class="modal">
+          <div class="modal-header"><h3>Ficha do paciente</h3> <a aria-label="Fechar janela" class="close-modal" href="#fechar">×</a></div>
+          <div class="panel patient-detail">
+            <p><strong>Nome:</strong> Maria Eduarda Lima</p>
+            <p><strong>CPF:</strong> 234.567.890-11</p>
+            <p><strong>Telefone:</strong> (81) 97777-2222</p>
+            <p><strong>Nascimento:</strong> 20/08/1987</p>
+            <p><strong>Status:</strong> <span class="badge">Ativo</span></p>
+          </div>
+          <div class="modal-actions"><a class="btn btn-primary" href="#fechar">Fechar</a></div>
+        </div>
+      </section>
+      <section aria-label="Ficha do paciente" aria-modal="true" class="css-modal" id="modal-ficha-2" role="dialog">
+        <div class="modal">
+          <div class="modal-header"><h3>Ficha do paciente</h3> <a aria-label="Fechar janela" class="close-modal" href="#fechar">×</a></div>
+          <div class="panel patient-detail">
+            <p><strong>Nome:</strong> Lucas Henrique</p>
+            <p><strong>CPF:</strong> 345.678.901-22</p>
+            <p><strong>Telefone:</strong> (81) 96666-3333</p>
+            <p><strong>Nascimento:</strong> 03/11/2001</p>
+            <p><strong>Status:</strong> <span class="badge">Ativo</span></p>
+          </div>
+          <div class="modal-actions"><a class="btn btn-primary" href="#fechar">Fechar</a></div>
+        </div>
+      </section>
+      <section aria-label="Ficha do paciente" aria-modal="true" class="css-modal" id="modal-ficha-3" role="dialog">
+        <div class="modal">
+          <div class="modal-header"><h3>Ficha do paciente</h3> <a aria-label="Fechar janela" class="close-modal" href="#fechar">×</a></div>
+          <div class="panel patient-detail">
+            <p><strong>Nome:</strong> Ana Clara Souza</p>
+            <p><strong>CPF:</strong> 456.789.012-33</p>
+            <p><strong>Telefone:</strong> (81) 95555-4444</p>
+            <p><strong>Nascimento:</strong> 28/05/1995</p>
+            <p><strong>Status:</strong> <span class="badge">Ativo</span></p>
+          </div>
+          <div class="modal-actions"><a class="btn btn-primary" href="#fechar">Fechar</a></div>
+        </div>
+      </section>
+</body>
+</html>
