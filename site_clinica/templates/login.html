@@ -1,54 +1,48 @@
-<!DOCTYPE html>
 {% load static %}
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    {% comment %} <link rel="stylesheet" href="{% static 'site_clinica/style.css' %}"> {% endcomment %}
-    <title>Login</title>
-  </head>
-  <body>
-    
-    <main>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{% static 'assets/style.css' %}">
+  <title>Login</title>
+</head>
+
+<body>
+
+  <main>
+
+    <section class="auth-view">
+      <div class="auth-card">
+        <a class="back-link" href="{% url 'index.html' %}">← Voltar ao site</a>
+        <div class="login-logo"><img alt="Espaço Mente e Corpo" src="{% static 'site_clinica/489b9.png' %}">
+          <h2>ESPAÇO <br> MENTE E CORPO</h2>
+        </div>
+        <h1>Entrar</h1>
+
         {% if form.errors %}
         <p>Usuário ou senha incorretos.</p>
         {% endif %}
-        <section class="auth-view" id="loginView">
-      <div class="auth-card">
-        <a class="back-link" href="{% url 'index.html' %}">← Voltar ao site</a>
-        <div class="login-logo"><img alt="Espaço Mente e Corpo" src="{% static 'site_clinica/489b9.png' %}"> <h2>ESPAÇO <br> MENTE E CORPO</h2></div>
-        <h1>Entrar</h1>
+        
         <div class="demo-login" id="loginForm">
           <p class="demo-note">
-            <form method="POST" action="{% url 'login' %}">
-                {% csrf_token %}
-                    <input
-                    type="text"
-                    name="username"
-                    id="usuario"
-                    size="20px"
-                    placeholder="Digite seu email"
-                    required
-                    /> <br>
-                    <input
-                        type="password"
-                        name="password"
-                        id="senha"
-                        size="20px"
-                        placeholder="Digite sua senha"
-                        required
-                    /><br>
+          <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            <input type="text" name="username" id="usuario" size="20px" placeholder="Digite seu email" required /> 
+            <input type="password" name="password" id="senha" size="20px" placeholder="Digite sua senha" required />
 
-                    <input type="submit" value="Entrar"/>
-            </form>
+            <input type="submit" class="btn btn-primary" value="Entrar" />
+          </form>
           </p>
         </div>
         <p class="register-text">Não tem conta? <a class="register-link" href="#modal-criar-conta">Cadastre-se</a></p>
       </div>
     </section>
-    </main>
-    <footer>
-    
-    </footer>
-  </body>
+  </main>
+  <footer>
+
+  </footer>
+</body>
+
 </html>
