@@ -1,0 +1,321 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="{% static 'assets/style.css' %}" rel="stylesheet">
+  <title>Pacientes — Espaço Mente e Corpo</title>
+</head>
+<body>
+  <div class="app-view">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <img alt="Espaço Mente e Corpo" class="brand-icon" src="{% static 'assets/489b9.png' %}">
+        <div><strong>Espaço Mente e Corpo</strong> <small>Clínica Integrada</small></div>
+      </div>
+      <div class="user-mini">
+        <div class="avatar">CA</div>
+        <div><strong>Clécio Almeida</strong> <small>Administrador</small></div>
+      </div>
+      <nav aria-label="Navegação do sistema" class="side-nav">
+        <a class="nav-item active" href="{% url 'dashboard' %}">⌂ <span>Dashboard</span></a>
+        <a class="nav-item" href="{% url 'agenda'%}">◷ <span>Agenda</span></a>
+        <a class="nav-item" href="{% url 'consultas' %}">▤ <span>Consultas</span></a>
+        <a class="nav-item" href="{% url 'pacientes'%}">♙ <span>Pacientes</span></a>
+        <a class="nav-item" href="{% url 'prontuarios'%}">▥ <span>Prontuários</span></a>
+        <a class="nav-item" href="{% url 'profissionais'%}">⚕ <span>Profissionais</span></a>
+        <a class="nav-item" href="{% url 'especialidades'%}">✚ <span>Especialidades</span></a>
+        <a class="nav-item" href="{% url 'financeiro'%}">R$ <span>Financeiro</span></a>
+        <a class="nav-item" href="{% url 'relatorios'%}">▥ <span>Relatórios</span></a>
+        <a class="nav-item" href="{% url 'configuracoes'%}">⚙ <span>Configurações</span></a>
+      </nav>
+      <a class="logout" href="{% url 'logout' %}">↪ Sair</a>
+    </aside>
+
+    <div class="app-main">
+      <header class="app-header">
+        <div class="app-headings">
+          <div class="tab-heading" data-heading="pacientes">
+            <span>Pacientes</span>
+            <h2>Cadastro e histórico</h2>
+          </div>
+        </div>
+        <div class="header-actions">
+          <button class="icon-btn" title="Notificações" type="button">🔔</button>
+          <button class="profile-btn" title="Perfil" type="button">
+            <span class="avatar small">CA</span> Clécio ▾
+          </button>
+        </div>
+      </header>
+      <main class="page-content" id="pageContent">
+
+        <section class="app-panel" data-panel="pacientes" id="panel-pacientes">
+          <div class="page-top">
+            <h3>Pacientes</h3>
+            <a class="btn btn-primary" href="#modal-paciente">+ Novo paciente</a>
+          </div>
+          <div class="search-row">
+            <input aria-label="Buscar por nome ou CPF" disabled id="patientSearch" placeholder="Buscar por nome ou CPF..." type="search">
+            <select aria-label="Filtrar por status" disabled id="patientStatus">
+              <option value="">Todos os status</option>
+              <option value="Ativo">Ativo</option>
+            </select>
+          </div>
+          <p class="demo-note">Filtros e pesquisas exigem JavaScript ou um backend. Os dados abaixo são fixos, para demonstrar o layout.</p>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Paciente</th>
+                  <th>Idade</th>
+                  <th>Telefone</th>
+                  <th>Responsável</th>
+                  <th>Grau de parentesco</th>
+                  <th>Status</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="patientsBody">
+                <tr>
+                  <td><strong>João Silva Santos</strong></td>
+                  <td>36</td>
+                  <td>(81) 98888-1111</td>
+                  <td>A mesma</td>
+                  <td>Não se aplica</td>
+                  <td><span class="badge">Ativo</span></td>
+                  <td><a class="action-btn" href="#modal-ficha-0">Ver ficha</a></td>
+                </tr>
+                <tr>
+                  <td><strong>Maria Eduarda Lima</strong></td>
+                  <td>17</td>
+                  <td>(81) 97777-2222</td>
+                  <td>Luciana Lima</td>
+                  <td>Mãe</td>
+                  <td><span class="badge">Ativo</span></td>
+                  <td><a class="action-btn" href="#modal-ficha-1">Ver ficha</a></td>
+                </tr>
+                <tr>
+                  <td><strong>Lucas Henrique</strong></td>
+                  <td>25</td>
+                  <td>(81) 96666-3333</td>
+                  <td>A mesma</td>
+                  <td>Não se aplica</td>
+                  <td><span class="badge">Ativo</span></td>
+                  <td><a class="action-btn" href="#modal-ficha-2">Ver ficha</a></td>
+                </tr>
+                <tr>
+                  <td><strong>Ana Clara Souza</strong></td>
+                  <td>11</td>
+                  <td>(81) 95555-4444</td>
+                  <td>Paulo Souza</td>
+                  <td>Pai</td>
+                  <td><span class="badge">Ativo</span></td>
+                  <td><a class="action-btn" href="#modal-ficha-3">Ver ficha</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- MODAIS compartilhados (CSS :target) -->
+
+  <section aria-label="Cadastrar paciente" aria-modal="true" class="css-modal" id="modal-paciente" role="dialog">
+    <div class="modal modal-wide">
+      <div class="modal-header">
+        <h3>Cadastrar paciente</h3>
+        <a aria-label="Fechar janela" class="close-modal" href="#fechar">×</a>
+      </div>
+      <div class="demo-form">
+        <p class="demo-note"><strong>Apenas visualização.</strong> Os dados preenchidos aqui não são enviados nem salvos.</p>
+        <div class="form-grid">
+          <label class="full-col">* Nome completo <input placeholder="Nome completo" required></label>
+          <label>* Foi indicado por alguém?
+            <select required>
+              <option>Sim</option>
+              <option>Não</option>
+            </select>
+          </label>
+          <label>Nome social <input></label>
+          <label>* Idade <input type="number" min="0" max="120" required></label>
+          <label>* Data de nascimento <input type="date" required></label>
+          <label>CPF <input placeholder="000.000.000-00"></label>
+          <label>* Escolaridade de quem utilizará o serviço
+            <select required>
+              <option>Fundamental completo</option>
+              <option>Fundamental incompleto (ou cursando)</option>
+              <option>Ensino Médio completo</option>
+              <option>Ensino Médio incompleto (ou cursando)</option>
+              <option>Ensino superior completo</option>
+              <option>Ensino superior incompleto (ou cursando)</option>
+              <option>Outro</option>
+            </select>
+          </label>
+          <label>* Estado civil
+            <select required>
+              <option>Solteiro(a)</option>
+              <option>Casado(a)</option>
+              <option>União Estável</option>
+              <option>Divorciado(a)</option>
+              <option>Viúvo(a)</option>
+            </select>
+          </label>
+          <label>* Renda mensal familiar <input type="number" min="0" required></label>
+          <label class="full-col">E-mail <input type="email"></label>
+          <label>* Telefone <input type="tel" required></label>
+
+          <h3 class="form-section-title full-col">Dados do responsável</h3>
+          <label class="full-col">Nome completo <input placeholder=""></label>
+          <label>Idade <input type="number" min="0" max="120"></label>
+          <label>Data de nascimento <input type="date"></label>
+          <label>Grau de parentesco <input placeholder=""></label>
+          <label>Profissão <input placeholder=""></label>
+
+          <h3 class="form-section-title full-col">Endereço</h3>
+          <label class="full-col">* Endereço <input type="text" placeholder="Rua, bairro e número da residência" required></label>
+          <label>CEP <input type="text" inputmode="numeric" placeholder="00000-000"></label>
+          <label>* Cidade <input placeholder="" required></label>
+          <label>* Estado <input placeholder="" required></label>
+
+          <h3 class="form-section-title full-col">Informações de consulta</h3>
+          <div class="checkbox-field full-col">
+            <span class="checkbox-field-label">* Qual serviço está buscando</span>
+            <div class="checkbox-group">
+              <label class="checkbox-item"><input type="checkbox" name="servico" value="fisioterapia"> Fisioterapia</label>
+              <label class="checkbox-item"><input type="checkbox" name="servico" value="estetica"> Estética</label>
+              <label class="checkbox-item"><input type="checkbox" name="servico" value="psicologia"> Psicologia</label>
+              <label class="checkbox-item"><input type="checkbox" name="servico" value="clinico"> Clínico</label>
+              <label class="checkbox-item"><input type="checkbox" name="servico" value="nutricao"> Nutrição</label>
+              <label class="checkbox-item"><input type="checkbox" name="servico" value="fonoaudiologia"> Fonoaudiologia</label>
+              <label class="checkbox-item"><input type="checkbox" name="servico" value="psicopedagogia"> Psicopedagogia</label>
+              <label class="checkbox-item"><input type="checkbox" name="servico" value="neuropsicopedagogia"> Neuropsicopedagogia</label>
+              <label class="checkbox-item"><input type="checkbox" name="servico" value="pneumologista"> Pneumologista</label>
+              <label class="checkbox-item"><input type="checkbox" name="servico" value="saude-adolescente"> Saúde do Adolescente</label>
+            </div>
+          </div>
+
+          <div class="checkbox-field full-col">
+            <span class="checkbox-field-label">* Disponibilidade de dias</span>
+            <div class="checkbox-group checkbox-group-days">
+              <label class="checkbox-item"><input type="checkbox" name="dia" value="segunda"> Segunda-feira</label>
+              <label class="checkbox-item"><input type="checkbox" name="dia" value="terca"> Terça-feira</label>
+              <label class="checkbox-item"><input type="checkbox" name="dia" value="quarta"> Quarta-feira</label>
+              <label class="checkbox-item"><input type="checkbox" name="dia" value="quinta"> Quinta-feira</label>
+              <label class="checkbox-item"><input type="checkbox" name="dia" value="sexta"> Sexta-feira</label>
+              <label class="checkbox-item"><input type="checkbox" name="dia" value="sabado"> Sábado</label>
+            </div>
+          </div>
+
+          <label>* Horário para atendimento <input type="time" required></label>
+
+          <label class="full-col">* Condição de saúde recente ou antiga que tem tratado atualmente? <input placeholder="" type="text" required></label>
+          
+          <label>Já realizou consulta com psiquiatra/neuropediatra
+            <select required>
+              <option>Sim</option>
+              <option>Não</option>
+              <option>Outro</option>
+            </select>
+          </label>
+          <label class="full-col">* Usa alguma medicação de uso contínuo, ou seja, todos os dias ou frequentemente? <input placeholder="" type="text" required></label>
+
+          <div class="checkbox-field full-col">
+            <span class="checkbox-field-label">* Selecione abaixo quais das condições de saúde já foi ou é apresentada por familiares próximos a você.</span>
+            <div class="checkbox-group checkbox-group-stacked">
+              <label class="checkbox-item"><input type="checkbox" name="familia" value="diabetes"> Diabetes</label>
+              <label class="checkbox-item"><input type="checkbox" name="familia" value="hipertensao"> Hipertensão (pressão alta)</label>
+              <label class="checkbox-item"><input type="checkbox" name="familia" value="cancer"> Câncer</label>
+              <label class="checkbox-item"><input type="checkbox" name="familia" value="cardiopatia"> Cardiopatia (doenças do coração)</label>
+              <label class="checkbox-item"><input type="checkbox" name="familia" value="autoimune"> Doença autoimune (ex.: lúpus, esclerose múltipla, psoríase, vitiligo, artrite reumatoide)</label>
+              <label class="checkbox-item"><input type="checkbox" name="familia" value="transtornos-mentais"> Transtornos mentais (depressão, ansiedade, esquizofrenia, autismo)</label>
+              <label class="checkbox-item"><input type="checkbox" name="familia" value="dependencia"> Dependência química (uso de cigarro, álcool ou outras substâncias)</label>
+              <label class="checkbox-item"><input type="checkbox" name="familia" value="infectocontagiosas"> Doenças infectocontagiosas (ex.: IST, hepatites, COVID, meningite)</label>
+              <label class="checkbox-item"><input type="checkbox" name="familia" value="nenhuma"> Nenhuma das opções acima / não soube responder</label>
+            </div>
+          </div>
+
+          <label class="full-col">* Quem realizou cadastro<input placeholder="" required></label>
+
+        </div>
+        <div class="modal-actions">
+          <a class="btn btn-outline" href="#fechar">Fechar</a>
+          <button class="btn btn-primary" disabled type="button">Salvar (requer backend)</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-label="Ficha do paciente" aria-modal="true" class="css-modal" id="modal-ficha-0" role="dialog">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Ficha do paciente</h3>
+        <a aria-label="Fechar janela" class="close-modal" href="#fechar">×</a>
+      </div>
+      <div class="panel patient-detail">
+        <p><strong>Nome:</strong> João Silva Santos</p>
+        <p><strong>CPF:</strong> 123.456.789-00</p>
+        <p><strong>Telefone:</strong> (81) 98888-1111</p>
+        <p><strong>Nascimento:</strong> 15/02/1990</p>
+        <p><strong>Status:</strong> <span class="badge">Ativo</span></p>
+      </div>
+      <div class="modal-actions"><a class="btn btn-primary" href="#fechar">Fechar</a></div>
+    </div>
+  </section>
+
+  <section aria-label="Ficha do paciente" aria-modal="true" class="css-modal" id="modal-ficha-1" role="dialog">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Ficha do paciente</h3>
+        <a aria-label="Fechar janela" class="close-modal" href="#fechar">×</a>
+      </div>
+      <div class="panel patient-detail">
+        <p><strong>Nome:</strong> Maria Eduarda Lima</p>
+        <p><strong>CPF:</strong> 234.567.890-11</p>
+        <p><strong>Telefone:</strong> (81) 97777-2222</p>
+        <p><strong>Nascimento:</strong> 20/08/1987</p>
+        <p><strong>Status:</strong> <span class="badge">Ativo</span></p>
+      </div>
+      <div class="modal-actions"><a class="btn btn-primary" href="#fechar">Fechar</a></div>
+    </div>
+  </section>
+
+  <section aria-label="Ficha do paciente" aria-modal="true" class="css-modal" id="modal-ficha-2" role="dialog">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Ficha do paciente</h3>
+        <a aria-label="Fechar janela" class="close-modal" href="#fechar">×</a>
+      </div>
+      <div class="panel patient-detail">
+        <p><strong>Nome:</strong> Lucas Henrique</p>
+        <p><strong>CPF:</strong> 345.678.901-22</p>
+        <p><strong>Telefone:</strong> (81) 96666-3333</p>
+        <p><strong>Nascimento:</strong> 03/11/2001</p>
+        <p><strong>Status:</strong> <span class="badge">Ativo</span></p>
+      </div>
+      <div class="modal-actions"><a class="btn btn-primary" href="#fechar">Fechar</a></div>
+    </div>
+  </section>
+
+  <section aria-label="Ficha do paciente" aria-modal="true" class="css-modal" id="modal-ficha-3" role="dialog">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Ficha do paciente</h3>
+        <a aria-label="Fechar janela" class="close-modal" href="#fechar">×</a>
+      </div>
+      <div class="panel patient-detail">
+        <p><strong>Nome:</strong> Ana Clara Souza</p>
+        <p><strong>CPF:</strong> 456.789.012-33</p>
+        <p><strong>Telefone:</strong> (81) 95555-4444</p>
+        <p><strong>Nascimento:</strong> 28/05/1995</p>
+        <p><strong>Status:</strong> <span class="badge">Ativo</span></p>
+      </div>
+      <div class="modal-actions"><a class="btn btn-primary" href="#fechar">Fechar</a></div>
+    </div>
+  </section>
+
+</body>
+</html>

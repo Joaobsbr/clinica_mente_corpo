@@ -1,49 +1,309 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <link href="../static/assets/style.css" rel="stylesheet">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="{% static 'assets/style.css' %}" rel="stylesheet">
+  <title>Especialidades — Espaço Mente e Corpo</title>
 </head>
 <body>
-    <!-- ABA: ESPECIALIDADES -->
-     <main>
+  <div class="app-view">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <img alt="Espaço Mente e Corpo" class="brand-icon" src="{% static 'assets/489b9.png' %}">
+        <div><strong>Espaço Mente e Corpo</strong> <small>Clínica Integrada</small></div>
+      </div>
+      <div class="user-mini">
+        <div class="avatar">CA</div>
+        <div><strong>Clécio Almeida</strong> <small>Administrador</small></div>
+      </div>
+      <nav aria-label="Navegação do sistema" class="side-nav">
+        <a class="nav-item active" href="{% url 'dashboard' %}">⌂ <span>Dashboard</span></a>
+        <a class="nav-item" href="{% url 'agenda'%}">◷ <span>Agenda</span></a>
+        <a class="nav-item" href="{% url 'consultas' %}">▤ <span>Consultas</span></a>
+        <a class="nav-item" href="{% url 'pacientes'%}">♙ <span>Pacientes</span></a>
+        <a class="nav-item" href="{% url 'prontuarios'%}">▥ <span>Prontuários</span></a>
+        <a class="nav-item" href="{% url 'profissionais'%}">⚕ <span>Profissionais</span></a>
+        <a class="nav-item" href="{% url 'especialidades'%}">✚ <span>Especialidades</span></a>
+        <a class="nav-item" href="{% url 'financeiro'%}">R$ <span>Financeiro</span></a>
+        <a class="nav-item" href="{% url 'relatorios'%}">▥ <span>Relatórios</span></a>
+        <a class="nav-item" href="{% url 'configuracoes'%}">⚙ <span>Configurações</span></a>
+      </nav>
+      <a class="logout" href="{% url 'logout' %}">↪ Sair</a>
+    </aside>
+
+    <div class="app-main">
+      <header class="app-header">
+        <div class="app-headings">
+          <div class="tab-heading" data-heading="especialidades">
+            <span>Especialidades</span>
+            <h2>Especialidades cadastradas</h2>
+          </div>
+        </div>
+        <div class="header-actions">
+          <button class="icon-btn" title="Notificações" type="button">🔔</button>
+          <button class="profile-btn" title="Perfil" type="button">
+            <span class="avatar small">CA</span> Clécio ▾
+          </button>
+        </div>
+      </header>
+      <main class="page-content" id="pageContent">
+
         <section class="app-panel" data-panel="especialidades" id="panel-especialidades">
           <div class="page-top">
-            <h3>Especialidades</h3> <a class="btn btn-primary" href="#modal-especialidade">+ Nova especialidade</a>
+            <h3>Especialidades</h3>
+            <a class="btn btn-primary" href="#modal-especialidade">+ Nova especialidade</a>
           </div>
           <div class="cards-grid" id="adminSpecialtyCards">
             <article class="public-card">
               <span class="eyebrow">Especialidade</span>
-              <h3>Clínica Médica</h3>
+              <h3>Fonoaudiologia</h3>
               <p>Profissionais cadastrados: 1</p>
             </article>
             <article class="public-card">
               <span class="eyebrow">Especialidade</span>
-              <h3>Cardiologia</h3>
+              <h3>Nutrição</h3>
               <p>Profissionais cadastrados: 1</p>
             </article>
             <article class="public-card">
               <span class="eyebrow">Especialidade</span>
-              <h3>Dermatologia</h3>
+              <h3>Psicologia</h3>
               <p>Profissionais cadastrados: 1</p>
             </article>
-            <article class="public-card"><span class="eyebrow">Especialidade</span>
+            <article class="public-card">
+              <span class="eyebrow">Especialidade</span>
               <h3>Pediatria</h3>
               <p>Profissionais cadastrados: 0</p>
             </article>
             <article class="public-card">
               <span class="eyebrow">Especialidade</span>
-              <h3>Ginecologia</h3>
+              <h3>Estética</h3>
               <p>Profissionais cadastrados: 0</p>
             </article>
-            <article class="public-card"><span class="eyebrow">Especialidade</span>
-              <h3>Ortopedia</h3>
+            <article class="public-card">
+              <span class="eyebrow">Especialidade</span>
+              <h3>Neuropsicopedagogia</h3>
               <p>Profissionais cadastrados: 0</p>
             </article>
           </div>
         </section>
-    </main>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- MODAIS compartilhados (CSS :target) -->
+  <section aria-label="Nova consulta" aria-modal="true" class="css-modal" id="modal-agendamento" role="dialog">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Nova consulta</h3>
+        <a aria-label="Fechar janela" class="close-modal" href="#fechar">×</a>
+      </div>
+      <div class="demo-form">
+        <p class="demo-note"><strong>Apenas visualização.</strong> Os dados preenchidos aqui não são enviados nem salvos.</p>
+        <div class="form-grid">
+          <label class="full-col">
+            Paciente
+            <select>
+              <option>João Silva Santos</option>
+              <option>Maria Eduarda Lima</option>
+              <option>Lucas Henrique</option>
+              <option>Ana Clara Souza</option>
+            </select>
+          </label>
+          <label>
+            Especialidade
+            <select>
+              <option>Fonoaudiologia</option>
+              <option>Nutrição</option>
+              <option>Psicologia</option>
+              <option>Pediatria</option>
+              <option>Estética</option>
+              <option>Neuropsicopedagogia</option>
+            </select>
+          </label>
+          <label>
+            Profissional
+            <select>
+              <option>Dra. Mariana Costa</option>
+              <option>Dr. Rafael Almeida</option>
+              <option>Dra. Camila Rocha</option>
+            </select>
+          </label>
+          <label>Data <input type="date"></label>
+          <label>Horário <input type="time"></label>
+          <label class="full-col">Observação <textarea placeholder="Observações"></textarea></label>
+        </div>
+        <div class="modal-actions">
+          <a class="btn btn-outline" href="#fechar">Fechar</a>
+          <button class="btn btn-primary" disabled type="button">Salvar (requer backend)</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-label="Cadastrar paciente" aria-modal="true" class="css-modal" id="modal-paciente" role="dialog">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Cadastrar paciente</h3>
+        <a aria-label="Fechar janela" class="close-modal" href="#fechar">×</a>
+      </div>
+      <div class="demo-form">
+        <p class="demo-note"><strong>Apenas visualização.</strong> Os dados preenchidos aqui não são enviados nem salvos.</p>
+        <div class="form-grid">
+          <label class="full-col">Nome completo <input placeholder="Nome completo" required></label>
+          <label>CPF <input placeholder="000.000.000-00"></label>
+          <label>Telefone <input placeholder="(00) 00000-0000"></label>
+          <label>Data de nascimento <input type="date"></label>
+          <label>Status
+            <select>
+              <option>Ativo</option>
+              <option>Inativo</option>
+            </select>
+          </label>
+        </div>
+        <div class="modal-actions">
+          <a class="btn btn-outline" href="#fechar">Fechar</a>
+          <button class="btn btn-primary" disabled type="button">Salvar (requer backend)</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-label="Novo profissional" aria-modal="true" class="css-modal" id="modal-profissional" role="dialog">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Novo profissional</h3>
+        <a aria-label="Fechar janela" class="close-modal" href="#fechar">×</a>
+      </div>
+      <div class="demo-form">
+        <p class="demo-note"><strong>Apenas visualização.</strong></p>
+        <div class="form-grid">
+          <label class="full-col">Nome <input placeholder="Nome completo"></label>
+          <label>Especialidade
+            <select>
+              <option>Fonoaudiologia</option>
+              <option>Nutrição</option>
+              <option>Psicologia</option>
+            </select>
+          </label>
+          <label>CRM <input placeholder="CRM"></label>
+        </div>
+        <div class="modal-actions">
+          <a class="btn btn-outline" href="#fechar">Fechar</a>
+          <button class="btn btn-primary" disabled type="button">Salvar (requer backend)</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-label="Nova especialidade" aria-modal="true" class="css-modal" id="modal-especialidade" role="dialog">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Nova especialidade</h3>
+        <a aria-label="Fechar janela" class="close-modal" href="#fechar">×</a>
+      </div>
+      <div class="demo-form">
+        <p class="demo-note"><strong>Apenas visualização.</strong></p>
+        <div class="form-grid">
+          <label class="full-col">Nome da especialidade <input placeholder="Ex.: Pediatria"></label>
+        </div>
+        <div class="modal-actions">
+          <a class="btn btn-outline" href="#fechar">Fechar</a>
+          <button class="btn btn-primary" disabled type="button">Salvar (requer backend)</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-label="Atendimento" aria-modal="true" class="css-modal" id="modal-atendimento" role="dialog">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Atendimento</h3>
+        <a aria-label="Fechar janela" class="close-modal" href="#fechar">×</a>
+      </div>
+      <div class="demo-form">
+        <p class="demo-note"><strong>Apenas visualização.</strong></p>
+        <div class="form-grid">
+          <label class="full-col">Queixa principal <textarea placeholder="Descreva a queixa"></textarea></label>
+          <label class="full-col">Conduta <textarea placeholder="Conduta / orientações"></textarea></label>
+        </div>
+        <div class="modal-actions">
+          <a class="btn btn-outline" href="#fechar">Fechar</a>
+          <button class="btn btn-primary" disabled type="button">Salvar (requer backend)</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-label="Ficha do paciente" aria-modal="true" class="css-modal" id="modal-ficha-0" role="dialog">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Ficha do paciente</h3>
+        <a aria-label="Fechar janela" class="close-modal" href="#fechar">×</a>
+      </div>
+      <div class="panel patient-detail">
+        <p><strong>Nome:</strong> João Silva Santos</p>
+        <p><strong>CPF:</strong> 123.456.789-00</p>
+        <p><strong>Telefone:</strong> (81) 98888-1111</p>
+        <p><strong>Nascimento:</strong> 15/02/1990</p>
+        <p><strong>Status:</strong> <span class="badge">Ativo</span></p>
+      </div>
+      <div class="modal-actions"><a class="btn btn-primary" href="#fechar">Fechar</a></div>
+    </div>
+  </section>
+
+  <section aria-label="Ficha do paciente" aria-modal="true" class="css-modal" id="modal-ficha-1" role="dialog">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Ficha do paciente</h3>
+        <a aria-label="Fechar janela" class="close-modal" href="#fechar">×</a>
+      </div>
+      <div class="panel patient-detail">
+        <p><strong>Nome:</strong> Maria Eduarda Lima</p>
+        <p><strong>CPF:</strong> 234.567.890-11</p>
+        <p><strong>Telefone:</strong> (81) 97777-2222</p>
+        <p><strong>Nascimento:</strong> 20/08/1987</p>
+        <p><strong>Status:</strong> <span class="badge">Ativo</span></p>
+      </div>
+      <div class="modal-actions"><a class="btn btn-primary" href="#fechar">Fechar</a></div>
+    </div>
+  </section>
+
+  <section aria-label="Ficha do paciente" aria-modal="true" class="css-modal" id="modal-ficha-2" role="dialog">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Ficha do paciente</h3>
+        <a aria-label="Fechar janela" class="close-modal" href="#fechar">×</a>
+      </div>
+      <div class="panel patient-detail">
+        <p><strong>Nome:</strong> Lucas Henrique</p>
+        <p><strong>CPF:</strong> 345.678.901-22</p>
+        <p><strong>Telefone:</strong> (81) 96666-3333</p>
+        <p><strong>Nascimento:</strong> 03/11/2001</p>
+        <p><strong>Status:</strong> <span class="badge">Ativo</span></p>
+      </div>
+      <div class="modal-actions"><a class="btn btn-primary" href="#fechar">Fechar</a></div>
+    </div>
+  </section>
+
+  <section aria-label="Ficha do paciente" aria-modal="true" class="css-modal" id="modal-ficha-3" role="dialog">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Ficha do paciente</h3>
+        <a aria-label="Fechar janela" class="close-modal" href="#fechar">×</a>
+      </div>
+      <div class="panel patient-detail">
+        <p><strong>Nome:</strong> Ana Clara Souza</p>
+        <p><strong>CPF:</strong> 456.789.012-33</p>
+        <p><strong>Telefone:</strong> (81) 95555-4444</p>
+        <p><strong>Nascimento:</strong> 28/05/1995</p>
+        <p><strong>Status:</strong> <span class="badge">Ativo</span></p>
+      </div>
+      <div class="modal-actions"><a class="btn btn-primary" href="#fechar">Fechar</a></div>
+    </div>
+  </section>
+
 </body>
 </html>
