@@ -78,12 +78,8 @@ WSGI_APPLICATION = 'clinica.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'clinica',
-        'USER': 'postgresql',
-        'PASSWORD': 'Postgresql@123',
-        'HOST': 'localhost',
-        'PORT': 5432
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'sqlite3',
     }
 }
 

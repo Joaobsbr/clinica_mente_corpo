@@ -1,8 +1,4 @@
 from django.db import models
-<<<<<<< HEAD
-
-# Create your models here.
-=======
 from django.contrib.auth.models import User
 
 class Pacientes(models.Model):
@@ -56,4 +52,3 @@ class Relatorios(models.Model):
 
     def __str__(self):
         return f"Relatório de {self.paciente.nome} em {self.data_relatorio}"
->>>>>>> 831f6ac6766c90c5f813e3257a749811e6e8055f
