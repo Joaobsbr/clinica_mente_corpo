@@ -1,53 +1,8 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="{% static 'assets/style.css' %}" rel="stylesheet">
-  <title>Agenda — Espaço Mente e Corpo</title>
-</head>
-<body>
-  <div class="app-view">
-    <aside class="sidebar">
-      <div class="sidebar-brand">
-        <img alt="Espaço Mente e Corpo" class="brand-icon" src="{% static 'assets/489b9.png' %}">
-        <div><strong>Espaço Mente e Corpo</strong> <small>Clínica Integrada</small></div>
-      </div>
-      <div class="user-mini">
-        <div class="avatar">CA</div>
-        <div><strong>Clécio Almeida</strong> <small>Administrador</small></div>
-      </div>
-      <nav aria-label="Navegação do sistema" class="side-nav">
-        <a class="nav-item active" href="{% url 'dashboard' %}">⌂ <span>Dashboard</span></a>
-        <a class="nav-item" href="{% url 'agenda'%}">◷ <span>Agenda</span></a>
-        <a class="nav-item" href="{% url 'consultas' %}">▤ <span>Consultas</span></a>
-        <a class="nav-item" href="{% url 'pacientes'%}">♙ <span>Pacientes</span></a>
-        <a class="nav-item" href="{% url 'prontuarios'%}">▥ <span>Prontuários</span></a>
-        <a class="nav-item" href="{% url 'profissionais'%}">⚕ <span>Profissionais</span></a>
-        <a class="nav-item" href="{% url 'especialidades'%}">✚ <span>Especialidades</span></a>
-        <a class="nav-item" href="{% url 'financeiro'%}">R$ <span>Financeiro</span></a>
-        <a class="nav-item" href="{% url 'relatorios'%}">▥ <span>Relatórios</span></a>
-        <a class="nav-item" href="{% url 'configuracoes'%}">⚙ <span>Configurações</span></a>
-      </nav>
-      <a class="logout" href="{% url 'logout' %}">↪ Sair</a>
-    </aside>
+{% extends "base.html" %}
 
-    <div class="app-main">
-      <header class="app-header">
-        <div class="app-headings">
-          <div class="tab-heading" data-heading="agenda">
-            <span>Agenda</span>
-            <h2>Agenda da clínica</h2>
-          </div>
-        </div>
-        <div class="header-actions">
-          <button class="icon-btn" title="Notificações" type="button">🔔</button>
-          <button class="profile-btn" title="Perfil" type="button">
-            <span class="avatar small">CA</span> Clécio ▾
-          </button>
-        </div>
-      </header>
+{% block title %}Agenda  — Espaço Mente e Corpo {% endblock %}
+
+{% block content %}
       <main class="page-content" id="pageContent">
 
         <section class="app-panel" data-panel="agenda" id="panel-agenda">
@@ -64,7 +19,7 @@
                 <option value="">Todos os profissionais (filtro indisponível nesta prévia)</option>
                 <option>Dra. Mariana Costa</option>
                 <option>Dr. Rafael Almeida</option>
-                <option>Dra. Camila Rocha</option>
+                <option>Est. Camila Rocha</option>
               </select>
               <input aria-label="Filtrar por data" disabled id="agendaDateFilter" type="date" value="2026-10-02">
             </div>
@@ -83,7 +38,7 @@
                 <span class="badge">Confirmada</span>
               </div>
               <div class="appointment">
-                <div><strong>15:00 — Ana Clara Souza</strong> <small>Psicologia · Dra. Camila Rocha</small></div>
+                <div><strong>15:00 — Ana Clara Souza</strong> <small>Psicologia · Est. Camila Rocha</small></div>
                 <span class="badge">Agendada</span>
               </div>
             </div>
@@ -91,8 +46,6 @@
         </section>
 
       </main>
-    </div>
-  </div>
 
   <!-- MODAIS compartilhados (CSS :target) -->
   <section aria-label="Nova consulta" aria-modal="true" class="css-modal" id="modal-agendamento" role="dialog">
@@ -129,7 +82,7 @@
             <select>
               <option>Dra. Mariana Costa</option>
               <option>Dr. Rafael Almeida</option>
-              <option>Dra. Camila Rocha</option>
+              <option>Est. Camila Rocha</option>
             </select>
           </label>
           <label>Data <input type="date"></label>
@@ -306,5 +259,4 @@
     </div>
   </section>
 
-</body>
-</html>
+{% endblock %}
