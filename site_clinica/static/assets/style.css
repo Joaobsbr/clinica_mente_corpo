@@ -87,7 +87,7 @@ button {
 .brand small,
 .sidebar-brand small {
   display: block;
-  color: var(--muted);
+  color: #fff;
   font-size: 11px;
   margin-top: 2px;
 }
