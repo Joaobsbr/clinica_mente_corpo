@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static%}
 {% block title %}Pacientes - Sistema Mente e Corpo{% endblock %}
 
 {% block content %}
@@ -7,7 +8,7 @@
         <section class="app-panel" data-panel="pacientes" id="panel-pacientes">
           <div class="page-top">
             <h3>Pacientes</h3>
-            <a class="btn btn-primary" href="#modal-paciente">+ Novo paciente</a>
+            <a class="btn btn-primary" href=""> Exportar</a>
           </div>
           <div class="search-row">
             <input aria-label="Buscar por nome ou CPF" disabled id="patientSearch" placeholder="Buscar por nome ou CPF..." type="search">
@@ -70,8 +71,8 @@
               </tbody>
             </table>
           </div>
-        </section>
-
+        </section><br>
+       <a class="btn btn-primary" href="#modal-paciente" style="margin-right: auto;">+ Novo paciente</a>
       </main>
 
   <!-- MODAIS compartilhados (CSS :target) -->
