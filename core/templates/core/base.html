@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}Espaço Mente e Corpo{% endblock %}</title>
+<link rel="stylesheet" href="{% static 'core/app.css' %}">
+</head>
+<body class="internal-body">
+<div class="app-shell">
+<aside class="sidebar">
+  <a class="brand" href="{% url 'recepcao' %}">
+    <img src="{% static 'core/img/logo.png' %}" alt="Espaço Mente e Corpo" class="brand-logo">
+    <span><b>Espaço Mente e Corpo</b><small>Clínica Integrada</small></span>
+  </a>
+  <div class="user-chip"><div class="avatar">{{ request.user.username|slice:":1"|upper }}</div><div><b>{{ request.user.get_full_name|default:request.user.username }}</b><small>{% if is_clinic_admin %}Administrador{% else %}Básico{% endif %}</small></div></div>
+  <nav>
+    <a href="{% url 'recepcao' %}" class="{% if request.resolver_match.url_name == 'recepcao' %}active{% endif %}">⌂ <span>Recepção</span></a>
+    <a href="{% url 'agenda' %}" class="{% if request.resolver_match.url_name == 'agenda' or request.resolver_match.url_name == 'agendamento_novo' %}active{% endif %}">▦ <span>Agenda</span></a>
+    <a href="{% url 'consultas' %}" class="{% if request.resolver_match.url_name == 'consultas' %}active{% endif %}">▤ <span>Consultas</span></a>
+    <a href="{% url 'pacientes' %}" class="{% if request.resolver_match.url_name == 'pacientes' %}active{% endif %}">♙ <span>Pacientes</span></a>
+    {% if can_access_clinical_records %}<a href="{% url 'prontuarios' %}" class="{% if request.resolver_match.url_name == 'prontuarios' %}active{% endif %}">▧ <span>Prontuários</span></a>{% endif %}
+    {% if is_clinic_admin %}
+      <a href="{% url 'profissionais' %}" class="{% if request.resolver_match.url_name == 'profissionais' %}active{% endif %}">♧ <span>Profissionais</span></a>
+      <a href="{% url 'administracao' %}" class="{% if request.resolver_match.url_name == 'administracao' %}active{% endif %}">⚙ <span>Administração</span></a>
+    {% endif %}
+  </nav>
+  <a class="site-link" href="{% url 'home' %}">↗ Ver site público</a>
+  <form method="post" action="{% url 'logout' %}" class="logout">{% csrf_token %}<button>↪ Sair</button></form>
+</aside>
+<main class="main">
+<header class="topbar"><div><small>Espaço Mente e Corpo</small><h1>{% block heading %}Recepção{% endblock %}</h1></div><div class="top-user">{{ request.user.get_full_name|default:request.user.username }}</div></header>
+<section class="content">
+{% if messages %}{% for message in messages %}<div class="message {{ message.tags }}">{{ message }}</div>{% endfor %}{% endif %}
+{% block content %}{% endblock %}
+</section>
+</main>
+</div>
+</body></html>

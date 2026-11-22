@@ -1,0 +1,8 @@
+{% extends "core/base.html" %}
+{% block title %}Pacientes | Espaço Mente e Corpo{% endblock %}{% block heading %}Pacientes{% endblock %}
+{% block content %}
+<div class="page-intro"><div><h2>Pacientes cadastrados</h2><p>Consulte e gerencie os registros da clínica.</p></div><div class="actions"><a class="btn ghost" href="?q={{ q|urlencode }}&export=csv">Exportar pacientes</a><a class="btn primary" href="{% url 'paciente_novo' %}">＋ Novo paciente</a></div></div>
+<div class="stats"><div><small>Total</small><b>{{ total }}</b></div><div><small>Ativos</small><b>{{ active }}</b></div><div><small>Desativados</small><b>{{ inactive }}</b></div></div>
+<form class="searchbar" method="get"><input name="q" value="{{ q }}" placeholder="Buscar por nome, responsável, CPF ou telefone"><button class="btn primary">Buscar</button></form>
+<div class="table-card"><table><thead><tr><th>Paciente</th><th>Idade</th><th>CPF</th><th>Telefone</th><th>Responsável</th><th>Status</th><th>Ação</th></tr></thead><tbody>{% for p in patients %}<tr><td><a class="patient-link" href="{% url 'paciente_editar' p.pk %}">{{ p.full_name }}</a></td><td>{% if p.age != None %}{{ p.age }}{% else %}—{% endif %}</td><td>{% if p.no_cpf %}Não possui{% else %}{{ p.cpf|default:"—" }}{% endif %}</td><td>{{ p.phone|default:"—" }}</td><td>{{ p.guardian_display|default:"—" }}</td><td><span class="status {{ p.status }}">{{ p.get_status_display }}</span></td><td><a class="btn small ghost" href="{% url 'paciente_editar' p.pk %}">Editar</a></td></tr>{% empty %}<tr><td colspan="7" class="empty">Nenhum paciente cadastrado.</td></tr>{% endfor %}</tbody></table></div>
+{% endblock %}

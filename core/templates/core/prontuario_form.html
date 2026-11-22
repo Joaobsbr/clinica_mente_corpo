@@ -1,0 +1,3 @@
+{% extends "core/base.html" %}
+{% block title %}Novo registro clínico{% endblock %}{% block heading %}Novo registro clínico{% endblock %}
+{% block content %}<div class="form-card narrow-card"><h2>Novo registro clínico</h2><p class="muted">Informações clínicas são sensíveis e devem ser registradas somente por profissionais autorizados.</p><form method="post">{% csrf_token %}{% for field in form %}<div class="field"><label>{{ field.label }}</label>{{ field }}{{ field.errors }}</div>{% endfor %}<div class="form-actions"><a class="btn ghost" href="{% url 'prontuarios' %}">Cancelar</a><button class="btn primary">Salvar registro</button></div></form></div>{% endblock %}

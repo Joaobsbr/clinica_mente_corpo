@@ -1,0 +1,41 @@
+{% extends "core/base.html" %}
+{% block title %}{{ title }} | Espaço Mente e Corpo{% endblock %}{% block heading %}{{ title }}{% endblock %}
+{% block content %}
+<div class="form-card"><div class="page-intro"><div><h2>{{ title }}</h2><p>Preencha somente as informações necessárias para o cadastro.</p></div><a class="btn ghost" href="{% url 'recepcao' %}">← Voltar</a></div>
+<form method="post" id="patient-form">{% csrf_token %}{% if form.non_field_errors %}<div class="message error">{{ form.non_field_errors }}</div>{% endif %}
+<h3>Dados do paciente</h3><div class="form-grid">
+<div class="field wide"><label>Nome completo *</label>{{ form.full_name }}{{ form.full_name.errors }}</div>
+<div class="field"><label>Data de nascimento</label>{{ form.birth_date }}{{ form.birth_date.errors }}</div>
+<div class="field"><label>Sexo</label>{{ form.sex }}</div>
+<div class="field"><label>Telefone</label>{{ form.phone }}</div>
+<div class="field"><label>E-mail</label>{{ form.email }}</div>
+<div class="field wide"><label>CPF</label><div class="inline-field">{{ form.cpf }}<label class="check">{{ form.no_cpf }} Não possui CPF</label></div>{{ form.cpf.errors }}</div>
+</div>
+<hr><h3>Dados do responsável</h3><label class="check self-check">{{ form.self_guardian }} O próprio paciente é o responsável</label>
+<div id="guardian-fields" class="form-grid">
+<div class="field wide"><label>Nome completo do responsável</label>{{ form.guardian_name }}{{ form.guardian_name.errors }}</div>
+<div class="field"><label>Idade</label>{{ form.guardian_age }}</div>
+<div class="field"><label>Data de nascimento</label>{{ form.guardian_birth_date }}</div>
+<div class="field"><label>Grau de parentesco</label>{{ form.guardian_relationship }}</div>
+<div class="field"><label>Profissão</label>{{ form.guardian_profession }}</div>
+</div>
+<hr><h3>Endereço</h3><div class="form-grid"><div class="field wide"><label>Rua e número</label>{{ form.street }}</div><div class="field"><label>Bairro</label>{{ form.neighborhood }}</div></div>
+<hr><h3>Controle do cadastro</h3><div class="form-grid"><div class="field"><label>Status</label>{{ form.status }}</div><div class="field wide"><label>Observações administrativas</label>{{ form.notes }}</div></div>
+<div class="form-actions"><a class="btn ghost" href="{% url 'recepcao' %}">Cancelar</a><button class="btn primary">Salvar paciente</button></div>
+</form></div>
+<script>
+(function(){
+ const self=document.getElementById("id_self_guardian");
+ const cpfCheck=document.getElementById("id_no_cpf");
+ const guardian=document.getElementById("guardian-fields");
+ const cpf=document.getElementById("id_cpf");
+ function syncGuardian(){
+   guardian.hidden=!!self.checked;
+   guardian.querySelectorAll("input,select,textarea").forEach(el=>{el.disabled=!!self.checked; if(self.checked) el.value="";});
+ }
+ function syncCpf(){cpf.disabled=!!cpfCheck.checked; if(cpfCheck.checked) cpf.value="";}
+ self.addEventListener("change",syncGuardian); cpfCheck.addEventListener("change",syncCpf);
+ syncGuardian(); syncCpf();
+})();
+</script>
+{% endblock %}
